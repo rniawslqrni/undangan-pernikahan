@@ -1,1 +1,243 @@
-create
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8B6F47">
+<title>Undangan Pernikahan - Andi & Sari</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body class="light-theme">
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" loop>
+  <source src="assets/music/wedding.mp3" type="audio/mpeg">
+</audio>
+<button id="musicToggle" class="music-toggle" aria-label="Toggle Music">🔇</button>
+
+<!-- 🌙 Dark/Light Mode Toggle -->
+<button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">🌙</button>
+
+<!-- 🎁 OPENING / COVER -->
+<section id="cover" class="cover">
+  <div class="parallax-bg" id="parallaxBg"></div>
+  <div class="flower-overlay" id="flowerOverlay"></div>
+  
+  <div class="cover-content">
+    <p class="cover-subtitle">The Wedding Of</p>
+    <h1 class="cover-names">Andi & Sari</h1>
+    <p class="cover-date">Sabtu, 20 Desember 2025</p>
+    
+    <div class="cover-photo">
+      <img src="assets/images/cover.jpg" alt="Foto Utama" loading="lazy">
+    </div>
+    
+    <div class="guest-info">
+      <p>Kepada Bapak/Ibu/Saudara/i</p>
+      <h3 id="guestName">Tamu Undangan</h3>
+      <p class="guest-note">Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
+    </div>
+    
+    <button id="openInvitation" class="btn-open">
+      <span>💌 Buka Undangan</span>
+    </button>
+  </div>
+</section>
+
+<!-- 📖 MAIN CONTENT -->
+<main id="mainContent" class="hidden">
+
+  <!-- COUNTDOWN -->
+  <section class="section countdown-section">
+    <h2 class="section-title">Menuju Hari Bahagia</h2>
+    <p class="section-sub">Sabtu, 20 Desember 2025</p>
+    <div class="countdown" id="countdown">
+      <div class="count-item"><span id="days">00</span><small>Hari</small></div>
+      <div class="count-item"><span id="hours">00</span><small>Jam</small></div>
+      <div class="count-item"><span id="minutes">00</span><small>Menit</small></div>
+      <div class="count-item"><span id="seconds">00</span><small>Detik</small></div>
+    </div>
+  </section>
+
+  <!-- MEMPELAI -->
+  <section class="section couple-section">
+    <h2 class="section-title">Mempelai</h2>
+    <p class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+    <p class="section-sub">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:</p>
+    
+    <div class="couple-container">
+      <div class="couple-card fade-in">
+        <div class="couple-photo">
+          <img src="assets/images/groom.jpg" alt="Mempelai Pria" loading="lazy">
+        </div>
+        <h3 class="couple-name">Andi Pratama, S.T.</h3>
+        <p class="couple-nick">"Andi"</p>
+        <p class="couple-parents">Putra dari<br>Bpk. Bambang Pratama & Ibu Siti Aminah</p>
+      </div>
+      
+      <div class="couple-divider">&</div>
+      
+      <div class="couple-card fade-in">
+        <div class="couple-photo">
+          <img src="assets/images/bride.jpg" alt="Mempelai Wanita" loading="lazy">
+        </div>
+        <h3 class="couple-name">Sari Wulandari, S.E.</h3>
+        <p class="couple-nick">"Sari"</p>
+        <p class="couple-parents">Putri dari<br>Bpk. Ahmad Suryana & Ibu Rina Kartika</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOVE STORY -->
+  <section class="section story-section">
+    <h2 class="section-title">Kisah Kami</h2>
+    <div class="timeline">
+      <div class="timeline-item left fade-in">
+        <div class="timeline-content">
+          <span class="timeline-date">2019</span>
+          <h3>Pertemuan Pertama</h3>
+          <p>Pertama kali bertemu di sebuah acara kampus, kami tidak menyangka akan berakhir seperti ini.</p>
+        </div>
+      </div>
+      <div class="timeline-item right fade-in">
+        <div class="timeline-content">
+          <span class="timeline-date">2022</span>
+          <h3>Mulai Menjalin Hubungan</h3>
+          <p>Setelah 3 tahun berteman, kami memutuskan untuk menjalin hubungan yang lebih serius.</p>
+        </div>
+      </div>
+      <div class="timeline-item left fade-in">
+        <div class="timeline-content">
+          <span class="timeline-date">2024</span>
+          <h3>Lamaran</h3>
+          <p>Dengan restu kedua keluarga, Andi melamar Sari di hadapan keluarga besar.</p>
+        </div>
+      </div>
+      <div class="timeline-item right fade-in">
+        <div class="timeline-content">
+          <span class="timeline-date">2025</span>
+          <h3>Pernikahan</h3>
+          <p>Kami mengundang Anda untuk menjadi saksi ikrar cinta kami menuju keluarga sakinah.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAIL ACARA -->
+  <section class="section event-section">
+    <h2 class="section-title">Detail Acara</h2>
+    <div class="event-grid">
+      <div class="event-card fade-in">
+        <div class="event-icon">💍</div>
+        <h3>Akad Nikah</h3>
+        <p class="event-time">Sabtu, 20 Desember 2025<br>08.00 - 10.00 WIB</p>
+        <p class="event-loc"><strong>Masjid Al-Hikmah</strong><br>Jl. Merdeka No. 123, Jakarta</p>
+        <a href="https://maps.google.com/?q=Masjid+Al-Hikmah+Jakarta" target="_blank" class="btn-maps">📍 Google Maps</a>
+      </div>
+      
+      <div class="event-card fade-in">
+        <div class="event-icon">🎉</div>
+        <h3>Resepsi</h3>
+        <p class="event-time">Sabtu, 20 Desember 2025<br>11.00 - 14.00 WIB</p>
+        <p class="event-loc"><strong>Gedung Serbaguna Melati</strong><br>Jl. Sudirman No. 456, Jakarta</p>
+        <a href="https://maps.google.com/?q=Gedung+Serbaguna+Melati+Jakarta" target="_blank" class="btn-maps">📍 Google Maps</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERI -->
+  <section class="section gallery-section">
+    <h2 class="section-title">Galeri</h2>
+    <div class="gallery-grid" id="gallery">
+      <!-- Diisi oleh JS / manual -->
+      <img src="assets/images/gal1.jpg" alt="Galeri 1" loading="lazy" class="gallery-item">
+      <img src="assets/images/gal2.jpg" alt="Galeri 2" loading="lazy" class="gallery-item">
+      <img src="assets/images/gal3.jpg" alt="Galeri 3" loading="lazy" class="gallery-item">
+      <img src="assets/images/gal4.jpg" alt="Galeri 4" loading="lazy" class="gallery-item">
+      <img src="assets/images/gal5.jpg" alt="Galeri 5" loading="lazy" class="gallery-item">
+      <img src="assets/images/gal6.jpg" alt="Galeri 6" loading="lazy" class="gallery-item">
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="section rsvp-section">
+    <h2 class="section-title">Konfirmasi Kehadiran</h2>
+    <form id="rsvpForm" class="rsvp-form">
+      <input type="text" id="rsvpName" placeholder="Nama Anda" required>
+      <select id="rsvpAttend" required>
+        <option value="">Konfirmasi Kehadiran</option>
+        <option value="hadir">Hadir</option>
+        <option value="tidak">Tidak Hadir</option>
+      </select>
+      <input type="number" id="rsvpGuests" placeholder="Jumlah Orang" min="1" max="10" value="1">
+      <textarea id="rsvpMessage" placeholder="Pesan & Doa" rows="3"></textarea>
+      <button type="submit" class="btn-primary">Kirim Konfirmasi</button>
+    </form>
+  </section>
+
+  <!-- UCAPAN & DOA -->
+  <section class="section wishes-section">
+    <h2 class="section-title">Ucapan & Doa</h2>
+    <div class="wishes-container" id="wishesList">
+      <!-- Realtime dari Firebase / LocalStorage -->
+    </div>
+  </section>
+
+  <!-- AMPLOP DIGITAL -->
+  <section class="section gift-section">
+    <h2 class="section-title">Amplop Digital</h2>
+    <p class="section-sub">Doa restu Anda adalah hadiah terindah bagi kami. Namun jika ingin memberi tanda kasih, dapat melalui:</p>
+    
+    <div class="gift-cards">
+      <div class="gift-card fade-in">
+        <h3>🏦 Bank BCA</h3>
+        <p class="gift-number">1234567890</p>
+        <p class="gift-name">a.n. Andi Pratama</p>
+        <button class="btn-copy" data-copy="1234567890">📋 Copy</button>
+      </div>
+      <div class="gift-card fade-in">
+        <h3>🏦 Bank Mandiri</h3>
+        <p class="gift-number">0987654321</p>
+        <p class="gift-name">a.n. Sari Wulandari</p>
+        <button class="btn-copy" data-copy="0987654321">📋 Copy</button>
+      </div>
+      <div class="gift-card fade-in">
+        <h3>📱 E-Wallet (GoPay/OVO)</h3>
+        <p class="gift-number">081234567890</p>
+        <p class="gift-name">a.n. Andi Pratama</p>
+        <button class="btn-copy" data-copy="081234567890">📋 Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PENUTUP -->
+  <section class="section closing-section">
+    <div class="closing-photo">
+      <img src="assets/images/closing.jpg" alt="Penutup" loading="lazy">
+    </div>
+    <p class="closing-text">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
+    <p class="closing-thanks">Terima kasih</p>
+    <h3 class="closing-names">Andi & Sari</h3>
+    
+    <button id="shareWA" class="btn-wa">💬 Share ke WhatsApp</button>
+  </section>
+
+  <footer class="footer">
+    <p>Made with ❤️ | © 2025 Andi & Sari</p>
+  </footer>
+</main>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
+<script src="js/guest.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/rsvp.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
