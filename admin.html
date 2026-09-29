@@ -1,1 +1,183 @@
-create
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Undangan Pernikahan</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .admin-wrap { max-width: 900px; margin: 40px auto; padding: 20px; }
+  .admin-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+  .admin-card h2 { color: var(--primary); margin-bottom: 15px; }
+  .admin-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .admin-form input { flex: 1; min-width: 200px; padding: 12px; border: 2px solid var(--accent); border-radius: 8px; }
+  .admin-form button { padding: 12px 24px; background: var(--primary); color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+  .guest-list { list-style: none; }
+  .guest-list li {
+    padding: 12px;
+    border-bottom: 1px solid var(--accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .guest-link {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    word-break: break-all;
+    flex: 1;
+  }
+  .btn-copy-link {
+    background: var(--accent);
+    color: var(--primary);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .stat-box {
+    background: var(--accent);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  .stat-box strong { display: block; font-size: 2rem; color: var(--primary); }
+</style>
+</head>
+<body class="light-theme">
+
+<div class="admin-wrap">
+  <h1 style="text-align:center;color:var(--primary);font-family:'Great Vibes',cursive;font-size:2.5rem">Admin Panel</h1>
+  <p style="text-align:center;margin-bottom:30px;opacity:0.7">Undangan Pernikahan Andi & Sari</p>
+
+  <!-- STATISTIK RSVP -->
+  <div class="admin-card">
+    <h2>📊 Statistik RSVP</h2>
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-box"><strong id="statTotal">0</strong>Total RSVP</div>
+      <div class="stat-box"><strong id="statHadir">0</strong>Hadir</div>
+      <div class="stat-box"><strong id="statTidak">0</strong>Tidak Hadir</div>
+      <div class="stat-box"><strong id="statTamu">0</strong>Total Tamu</div>
+    </div>
+  </div>
+
+  <!-- GENERATOR LINK TAMU -->
+  <div class="admin-card">
+    <h2>🔗 Generator Link Tamu</h2>
+    <p style="margin-bottom:15px;opacity:0.8;font-size:0.9rem">Tambahkan nama tamu untuk membuat link undangan khusus.</p>
+    <div class="admin-form">
+      <input type="text" id="newGuestName" placeholder="Nama tamu, e.g. Bapak Budi Santoso">
+      <button onclick="addGuest()">+ Tambah</button>
+    </div>
+    <ul class="guest-list" id="guestList" style="margin-top:20px"></ul>
+  </div>
+
+  <!-- DAFTAR UCAPAN -->
+  <div class="admin-card">
+    <h2>💬 Daftar Ucapan & RSVP</h2>
+    <ul class="guest-list" id="rsvpList"></ul>
+  </div>
+
+  <!-- EXPORT -->
+  <div class="admin-card">
+    <h2>📥 Export Data</h2>
+    <button onclick="exportData()" style="padding:12px 24px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer">Download CSV Ucapan</button>
+  </div>
+</div>
+
+<script>
+const GUEST_KEY = 'wedding_guest_links';
+const RSVP_KEY = 'wedding_rsvp_data';
+
+function loadGuests() {
+  const list = JSON.parse(localStorage.getItem(GUEST_KEY) || '[]');
+  const ul = document.getElementById('guestList');
+  ul.innerHTML = list.map((name, i) => {
+    const link = `${location.origin}${location.pathname.replace('admin.html','index.html')}?to=${encodeURIComponent(name)}`;
+    return `<li>
+      <span>${name}</span>
+      <span class="guest-link">${link}</span>
+      <button class="btn-copy-link" onclick="copyLink('${link}')">Copy</button>
+      <button class="btn-copy-link" onclick="deleteGuest(${i})" style="background:#f8d7da;color:#721c24">Hapus</button>
+    </li>`;
+  }).join('') || '<li style="opacity:0.5">Belum ada tamu</li>';
+}
+
+function addGuest() {
+  const input = document.getElementById('newGuestName');
+  const name = input.value.trim();
+  if (!name) return;
+  const list = JSON.parse(localStorage.getItem(GUEST_KEY) || '[]');
+  list.push(name);
+  localStorage.setItem(GUEST_KEY, JSON.stringify(list));
+  input.value = '';
+  loadGuests();
+}
+
+function deleteGuest(i) {
+  const list = JSON.parse(localStorage.getItem(GUEST_KEY) || '[]');
+  list.splice(i, 1);
+  localStorage.setItem(GUEST_KEY, JSON.stringify(list));
+  loadGuests();
+}
+
+function copyLink(link) {
+  navigator.clipboard.writeText(link).then(() => alert('Link disalin!'));
+}
+
+function loadRsvp() {
+  const data = JSON.parse(localStorage.getItem(RSVP_KEY) || '[]');
+  const hadir = data.filter(d => d.attend === 'hadir');
+  const tidak = data.filter(d => d.attend === 'tidak');
+  const totalTamu = hadir.reduce((sum, d) => sum + (parseInt(d.guests) || 1), 0);
+  
+  document.getElementById('statTotal').textContent = data.length;
+  document.getElementById('statHadir').textContent = hadir.length;
+  document.getElementById('statTidak').textContent = tidak.length;
+  document.getElementById('statTamu').textContent = totalTamu;
+
+  document.getElementById('rsvpList').innerHTML = data.slice().reverse().map(d => `
+    <li>
+      <div>
+        <strong>${d.name}</strong>
+        <span style="font-size:0.75rem;opacity:0.6"> • ${d.time}</span>
+        <p style="font-size:0.9rem">${d.message || '-'}</p>
+      </div>
+      <span style="font-size:0.8rem">${d.attend === 'hadir' ? '✅' : '❌'} (${d.guests} org)</span>
+    </li>
+  `).join('') || '<li style="opacity:0.5">Belum ada RSVP</li>';
+}
+
+function exportData() {
+  const data = JSON.parse(localStorage.getItem(RSVP_KEY) || '[]');
+  const csv = ['Nama,Kehadiran,Jumlah,Pesan,Waktu']
+    .concat(data.map(d => `"${d.name}","${d.attend}","${d.guests}","${(d.message||'').replace(/"/g,'""')}","${d.time}"`))
+    .join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'rsvp-undangan.csv';
+  a.click();
+}
+
+loadGuests();
+loadRsvp();
+// Refresh setiap 5 detik untuk "realtime" lokal
+setInterval(loadRsvp, 5000);
+</script>
+</body>
+</html>
